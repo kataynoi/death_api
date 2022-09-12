@@ -107,7 +107,7 @@ class Report_model extends CI_Model
             $sql_sex = "AND sex = '1'";
         } else if ($sex == 2) {
             $sql_sex = "AND sex = '2'";
-        } else if($sex ==3 ) {
+        } else {
             $sql_sex = "AND sex = '3'";
         }
 

@@ -100,14 +100,14 @@ class Report_model extends CI_Model
     }
 
 
-    public function le7($sex = 0)
+    public function le7($sex)
     {
 
         if ($sex == 1) {
             $sql_sex = "AND sex = '1'";
         } else if ($sex == 2) {
             $sql_sex = "AND sex = '2'";
-        } else {
+        } else if($sex ==3 ) {
             $sql_sex = "AND sex = '3'";
         }
 

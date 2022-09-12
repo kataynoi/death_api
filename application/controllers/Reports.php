@@ -11,9 +11,22 @@ class Reports extends REST_Controller
 
     }
     public function le_post(){
+        $sex= $this->input->post('sex');
+        echo "SEX:".$sex;
+        $r = $this->report_model->le7($sex);
+        $this->response($r);
+    }
+    public function hale_post(){
         //echo "API TEST OK";
         $sex= $this->input->post('sex');
-        $r = $this->report_model->le7($sex);
+        $r = $this->report_model->hale7($sex);
+        $this->response($r);
+    }
+    public function yll_post(){
+        //echo "API TEST OK";
+        $sex= $this->post('sex');
+        $prov= $this->input->post('prov');
+        $r = $this->report_model->yll7($sex,$prov);
         $this->response($r);
     }
 }

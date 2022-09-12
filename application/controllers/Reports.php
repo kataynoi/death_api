@@ -12,7 +12,7 @@ class Reports extends REST_Controller
     }
     public function le_post(){
         $sex= $this->input->post('sex');
-        echo "SEX:".$sex;
+        //echo "SEX:".$sex;
         $r = $this->report_model->le7($sex);
         $this->response($r);
     }

@@ -160,7 +160,7 @@ class Report_model extends CI_Model
         rp_hale_home_r7.y2018,
         rp_hale_home_r7.y2019,
         rp_hale_home_r7.y2020,
-        rp_hale_home_r7.y2021,
+        rp_hale_home_r7.y2021
         FROM
         rp_hale_home_r7
         WHERE 

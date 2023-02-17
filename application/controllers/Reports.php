@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ *
+ * @author  Mr.Dechachit Kaewmaung 
+ * @copyright   MKHO <http://mkho.moph.go.th>
+ *
+ */
 require(APPPATH.'/libraries/REST_Controller.php');
 class Reports extends REST_Controller
 {
@@ -13,8 +18,10 @@ class Reports extends REST_Controller
     public function le_post(){
         
         $sex= $this->input->get('sex');
+        $provcode= $this->input->get('provcode');
         //echo "SEX:".$sex;
-        $r = $this->report_model->le7($sex);
+       // echo "Provcode:".$provcode;
+        $r = $this->report_model->le7($sex,$provcode);
         $this->response($r);
     }
     public function hale_post(){

@@ -20,7 +20,7 @@ class Reports extends REST_Controller
         $sex= $this->input->get('sex');
         $provcode= $this->input->get('provcode');
         //echo "SEX:".$sex;
-       // echo "Provcode:".$provcode;
+       //echo "Provcode:".$provcode;
         $r = $this->report_model->le7($sex,$provcode);
         $this->response($r);
     }

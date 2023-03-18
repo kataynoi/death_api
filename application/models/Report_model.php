@@ -32,7 +32,8 @@ class Report_model extends CI_Model
             a.y2018,
             a.y2019,
             a.y2020,
-            a.y2021
+            a.y2021,
+            a.y2022
             FROM
             rp_le_home_r7 a
             left join cchangwat b on a.prov = b.changwatcode
@@ -68,7 +69,9 @@ class Report_model extends CI_Model
         AND sex = '".$sex."'  
         AND prov = '".$provcode."'
         ORDER BY `no`";
+        //echo $sql;
         $rs = $this->db->query($sql)->result();
+        //echo $this->db->last_query();
         }
 
         return $rs;
@@ -96,7 +99,8 @@ class Report_model extends CI_Model
         rp_hale_home_r7.y2018,
         rp_hale_home_r7.y2019,
         rp_hale_home_r7.y2020,
-        rp_hale_home_r7.y2021
+        rp_hale_home_r7.y2021,
+        rp_hale_home_r7.y2022
         FROM
         rp_hale_home_r7
         WHERE 
@@ -133,7 +137,8 @@ class Report_model extends CI_Model
         z5_rp_yll_home2.y2018,
         z5_rp_yll_home2.y2019,
         z5_rp_yll_home2.y2020,
-        z5_rp_yll_home2.y2021
+        z5_rp_yll_home2.y2021,
+        z5_rp_yll_home2.y2022
         FROM
         z5_rp_yll_home2
         WHERE
@@ -142,11 +147,11 @@ class Report_model extends CI_Model
         # Sex B = ทั้งหมด,   F = หญิง  ,   M = ชาย
         z5_rp_yll_home2.SEX = '" . $sql_sex . "'
         ORDER BY
-        z5_rp_yll_home2.y2020 DESC
+        z5_rp_yll_home2.y2022 DESC
         LIMIT 20 ";
-
+        //echo $sql;
         $rs = $this->db->query($sql)->result();
-        //echo $this->db->last_query();
+       // echo $this->db->last_query();
         return $rs;
     }
 }

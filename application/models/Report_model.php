@@ -77,7 +77,7 @@ class Report_model extends CI_Model
         return $rs;
     }
 
-    public function hale7($sex = 0)
+    public function hale7($sex = 0,$provcode="")
     {
 
         if ($sex == 1) {
@@ -88,31 +88,60 @@ class Report_model extends CI_Model
             $sql_sex = "AND sex = '3'";
         }
 
-        $provcode = $this->config->item('prov_code');
-        $sql = "SELECT
-        rp_hale_home_r7.prov,
-        rp_hale_home_r7.`no`,
-        rp_hale_home_r7.age_gr,
-        rp_hale_home_r7.sex,
-        rp_hale_home_r7.y2016,
-        rp_hale_home_r7.y2017,
-        rp_hale_home_r7.y2018,
-        rp_hale_home_r7.y2019,
-        rp_hale_home_r7.y2020,
-        rp_hale_home_r7.y2021,
-        rp_hale_home_r7.y2022
+        if ($provcode == "") {
+            $sql = "SELECT
+            a.prov,
+            b.changwatname as name,
+            a.`no`,
+            a.age_gr,
+            a.sex,
+            a.y2016,
+            a.y2017,
+            a.y2018,
+            a.y2019,
+            a.y2020,
+            a.y2021,
+            a.y2022
+            FROM
+            rp_hale_home_r7 a
+            left join cchangwat b on a.prov = b.changwatcode
+            WHERE 
+            # 4 = 'เขตสุขภาพที่  7 ,   40  = ขอนแก่น  ,  44  =  มหาสารคาม ,  45  = ร้อยเอ็ด ,  46  = กาฬสินธุ์  
+            #Prov = '4' AND 
+            # no = อายุเมื่อแรกเกิด
+            no = '1' 
+            # เพศ   1  = ชาย   2  = หญิง   3  = รวม
+            " . $sql_sex;
+            //echo $sql;
+            $rs = $this->db->query($sql)->result();
+            //echo $this->db->last_query();
+        }else{
+            $sql="SELECT
+            a.prov, 
+            a.`no`, 
+            a.age_gr, 
+            a.sex, 
+          a.ampur,
+            b.ampurname as name,
+            a.y2016, 
+            a.y2017, 
+            a.y2018, 
+            a.y2019, 
+            a.y2020, 
+            a.y2021, 
+            a.y2022
         FROM
-        rp_hale_home_r7
-        WHERE 
-        # 4 = 'เขตสุขภาพที่  7 ,   40  = ขอนแก่น  ,  44  =  มหาสารคาม ,  45  = ร้อยเอ็ด ,  46  = กาฬสินธุ์  
-        #Prov = '4' AND 
-        # no = อายุเมื่อแรกเกิด
-        no = '1' 
-        # เพศ   1  = ชาย   2  = หญิง   3  = รวม
-        " . $sql_sex;
+            rp_hale_home_r7_amp a
+        LEFT JOIN campur b ON a.ampur = b.ampurcodefull
+        WHERE age_gr = '0' 
+        AND sex = '".$sex."'  
+        AND prov = '".$provcode."'
+        ORDER BY `no`";
         //echo $sql;
         $rs = $this->db->query($sql)->result();
         //echo $this->db->last_query();
+        }
+
         return $rs;
     }
 

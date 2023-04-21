@@ -27,7 +27,8 @@ class Reports extends REST_Controller
     public function hale_post(){
         //echo "API TEST OK";
         $sex= $this->input->get('sex');
-        $r = $this->report_model->hale7($sex);
+        $provcode= $this->input->get('provcode');
+        $r = $this->report_model->hale7($sex,$provcode);
         $this->response($r);
     }
     public function yll_post(){

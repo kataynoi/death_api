@@ -219,7 +219,7 @@ class Report_model extends CI_Model
                 ORDER BY
                 a.y2022 DESC
                 LIMIT 20 ";
-                echo $sql;
+                //echo $sql;
                 $rs = $this->db->query($sql)->result();
                 // echo $this->db->last_query();
         }else{
@@ -246,7 +246,7 @@ class Report_model extends CI_Model
                 ORDER BY
                 a.y2022 DESC
                 LIMIT 20 ";
-                echo $sql;
+                //echo $sql;
                 $rs = $this->db->query($sql)->result();
                 // echo $this->db->last_query();
         }

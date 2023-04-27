@@ -37,7 +37,7 @@ class Reports extends REST_Controller
         //echo "SEX:".$sex;
         $prov= $this->input->get('prov');
         $amp= $this->input->get('amp');
-        echo "SEX:".$amp;
+        //echo "SEX:".$amp;
         $r = $this->report_model->yll7_dev($sex,$prov,$amp);
         $this->response($r);
     }

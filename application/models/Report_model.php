@@ -47,8 +47,8 @@ class Report_model extends CI_Model
             //echo $sql;
             $rs = $this->db->query($sql)->result();
             //echo $this->db->last_query();
-        }else{
-            $sql="SELECT
+        } else {
+            $sql = "SELECT
             a.prov, 
             a.`no`, 
             a.age_gr, 
@@ -66,18 +66,18 @@ class Report_model extends CI_Model
             rp_le_home_r7_amp a
         LEFT JOIN campur b ON a.ampur = b.ampurcodefull
         WHERE age_gr = '0' 
-        AND sex = '".$sex."'  
-        AND prov = '".$provcode."'
+        AND sex = '" . $sex . "'  
+        AND prov = '" . $provcode . "'
         ORDER BY `no`";
-        //echo $sql;
-        $rs = $this->db->query($sql)->result();
-        //echo $this->db->last_query();
+            //echo $sql;
+            $rs = $this->db->query($sql)->result();
+            //echo $this->db->last_query();
         }
 
         return $rs;
     }
 
-    public function hale7($sex = 0,$provcode="")
+    public function hale7($sex, $provcode)
     {
 
         if ($sex == 1) {
@@ -115,8 +115,8 @@ class Report_model extends CI_Model
             //echo $sql;
             $rs = $this->db->query($sql)->result();
             //echo $this->db->last_query();
-        }else{
-            $sql="SELECT
+        } else {
+            $sql = "SELECT
             a.prov, 
             a.`no`, 
             a.age_gr, 
@@ -134,18 +134,18 @@ class Report_model extends CI_Model
             rp_hale_home_r7_amp a
         LEFT JOIN campur b ON a.ampur = b.ampurcodefull
         WHERE age_gr = '0' 
-        AND sex = '".$sex."'  
-        AND prov = '".$provcode."'
+        AND sex = '" . $sex . "'  
+        AND prov = '" . $provcode . "'
         ORDER BY `no`";
-        //echo $sql;
-        $rs = $this->db->query($sql)->result();
-        //echo $this->db->last_query();
+            //echo $sql;
+            $rs = $this->db->query($sql)->result();
+            //echo $this->db->last_query();
         }
 
         return $rs;
     }
 
-    public function yll7($sex = 0, $provcode)
+    public function yll7($sex, $provcode)
     {
 
         if ($sex == 1) {
@@ -158,31 +158,99 @@ class Report_model extends CI_Model
 
 
         $sql = "SELECT
-        z5_rp_yll_home2.n,
-        z5_rp_yll_home2.prov,
-        z5_rp_yll_home2.SEX,
-        z5_rp_yll_home2.gr_disease,
-        z5_rp_yll_home2.gr_diseaseTH,
-        z5_rp_yll_home2.y2018,
-        z5_rp_yll_home2.y2019,
-        z5_rp_yll_home2.y2020,
-        z5_rp_yll_home2.y2021,
-        z5_rp_yll_home2.y2022
+        a.n,
+        a.prov,
+        a.SEX,
+        a.gr_disease,
+        a.gr_diseaseTH,
+        a.y2018,
+        a.y2019,
+        a.y2020,
+        a.y2021,
+        a.y2022
         FROM
-        z5_rp_yll_home2
+        z5_rp_yll_home2 a
         WHERE
         #prov  4 = เขต   40 ขอนแก่น    44มหาสารคาม   45ร้อยเอ็ด  46กาฬสินธุ์
-        z5_rp_yll_home2.prov = '" . $provcode . "' AND
+        a.prov = '" . $provcode . "' AND
         # Sex B = ทั้งหมด,   F = หญิง  ,   M = ชาย
-        z5_rp_yll_home2.SEX = '" . $sql_sex . "'
+        a.SEX = '" . $sql_sex . "'
         ORDER BY
-        z5_rp_yll_home2.y2022 DESC
+        a.y2022 DESC
         LIMIT 20 ";
         //echo $sql;
         $rs = $this->db->query($sql)->result();
-       // echo $this->db->last_query();
+        // echo $this->db->last_query();
+        return $rs;
+    }
+
+
+    public function yll7_dev($sex, $provcode, $ampcode)
+    {
+
+        if ($sex == 1) {
+            $sql_sex = "M";
+        } else if ($sex == 2) {
+            $sql_sex = "F";
+        } else {
+            $sql_sex = "B";
+        }
+
+        if ($ampcode == "") {
+            $sql = "SELECT
+                a.n,
+                b.changwatname as name,
+                a.SEX,
+                a.gr_disease,
+                a.gr_diseaseTH,
+                a.y2018,
+                a.y2019,
+                a.y2020,
+                a.y2021,
+                a.y2022
+                FROM
+                z5_rp_yll_home2 a
+                left join cchangwat b on a.prov = b.changwatcode
+                WHERE
+                #prov  4 = เขต   40 ขอนแก่น    44มหาสารคาม   45ร้อยเอ็ด  46กาฬสินธุ์
+                a.prov = '" . $provcode . "' AND
+                # Sex B = ทั้งหมด,   F = หญิง  ,   M = ชาย
+                a.SEX = '" . $sql_sex . "'
+                ORDER BY
+                a.y2022 DESC
+                LIMIT 20 ";
+                echo $sql;
+                $rs = $this->db->query($sql)->result();
+                // echo $this->db->last_query();
+        }else{
+
+            $sql = "SELECT
+                a.n,
+                b.changwatname as name,
+                a.SEX,
+                a.gr_disease,
+                a.gr_diseaseTH,
+                a.y2018,
+                a.y2019,
+                a.y2020,
+                a.y2021,
+                a.y2022
+                FROM
+                z5_rp_yll_home2_amp a
+                left join cchangwat b on a.prov = b.changwatcode
+                WHERE
+                #prov  4 = เขต   40 ขอนแก่น    44มหาสารคาม   45ร้อยเอ็ด  46กาฬสินธุ์
+                a.ampur = '" . $ampcode . "' AND 
+                # Sex B = ทั้งหมด,   F = หญิง  ,   M = ชาย
+                a.SEX = '" . $sql_sex . "'
+                ORDER BY
+                a.y2022 DESC
+                LIMIT 20 ";
+                echo $sql;
+                $rs = $this->db->query($sql)->result();
+                // echo $this->db->last_query();
+        }
+
         return $rs;
     }
 }
-/* End of file basic_model.php */
-/* Location: ./application/models/basic_model.php */

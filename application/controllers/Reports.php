@@ -33,9 +33,12 @@ class Reports extends REST_Controller
     }
     public function yll_post(){
         //echo "API TEST OK";
-        $sex= $this->get('sex');
+        $sex= $this->input->get('sex');
+        //echo "SEX:".$sex;
         $prov= $this->input->get('prov');
-        $r = $this->report_model->yll7($sex,$prov);
+        $amp= $this->input->get('amp');
+        echo "SEX:".$amp;
+        $r = $this->report_model->yll7_dev($sex,$prov,$amp);
         $this->response($r);
     }
 }

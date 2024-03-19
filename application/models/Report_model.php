@@ -290,7 +290,7 @@ class Report_model extends CI_Model
                 AND DYEAR='".$year."' 
                 GROUP BY a.CODE298 
                 ORDER BY total DESC
-                LIMIT 20;";
+                LIMIT 50;";
                 //echo $sql;
                 $rs = $death_prov->query($sql)->result();
                 // echo $this->db->last_query();

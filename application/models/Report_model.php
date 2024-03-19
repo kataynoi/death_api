@@ -9,6 +9,7 @@
  */
 class Report_model extends CI_Model
 {
+    
     public function le7($sex, $provcode)
     {
 
@@ -33,7 +34,9 @@ class Report_model extends CI_Model
             a.y2019,
             a.y2020,
             a.y2021,
-            a.y2022
+            a.y2022,
+            a.y2023,
+            a.y2024
             FROM
             rp_le_home_r7 a
             left join cchangwat b on a.prov = b.changwatcode
@@ -61,7 +64,9 @@ class Report_model extends CI_Model
             a.y2019, 
             a.y2020, 
             a.y2021, 
-            a.y2022
+            a.y2022,
+            a.y2023,
+            a.y2024
         FROM
             rp_le_home_r7_amp a
         LEFT JOIN campur b ON a.ampur = b.ampurcodefull
@@ -101,9 +106,11 @@ class Report_model extends CI_Model
             a.y2019,
             a.y2020,
             a.y2021,
-            a.y2022
+            a.y2022,
+            a.y2023,
+            a.y2024
             FROM
-            rp_hale_home_r7 a
+            rp_hale_home_r7_2019 a
             left join cchangwat b on a.prov = b.changwatcode
             WHERE 
             # 4 = 'เขตสุขภาพที่  7 ,   40  = ขอนแก่น  ,  44  =  มหาสารคาม ,  45  = ร้อยเอ็ด ,  46  = กาฬสินธุ์  
@@ -129,9 +136,11 @@ class Report_model extends CI_Model
             a.y2019, 
             a.y2020, 
             a.y2021, 
-            a.y2022
+            a.y2022,
+            a.y2023,
+            a.y2024
         FROM
-            rp_hale_home_r7_amp a
+            rp_hale_home_r7_amp_2019 a
         LEFT JOIN campur b ON a.ampur = b.ampurcodefull
         WHERE age_gr = '0' 
         AND sex = '" . $sex . "'  
@@ -207,7 +216,8 @@ class Report_model extends CI_Model
                 a.y2019,
                 a.y2020,
                 a.y2021,
-                a.y2022
+                a.y2022,
+                a.y2023
                 FROM
                 z5_rp_yll_home2 a
                 left join cchangwat b on a.prov = b.changwatcode
@@ -217,7 +227,7 @@ class Report_model extends CI_Model
                 # Sex B = ทั้งหมด,   F = หญิง  ,   M = ชาย
                 a.SEX = '" . $sql_sex . "'
                 ORDER BY
-                a.y2022 DESC
+                a.y2023 DESC
                 LIMIT 20 ";
                 //echo $sql;
                 $rs = $this->db->query($sql)->result();
@@ -234,7 +244,8 @@ class Report_model extends CI_Model
                 a.y2019,
                 a.y2020,
                 a.y2021,
-                a.y2022
+                a.y2022,
+                a.y2023
                 FROM
                 z5_rp_yll_home2_amp a
                 left join cchangwat b on a.prov = b.changwatcode
@@ -244,12 +255,45 @@ class Report_model extends CI_Model
                 # Sex B = ทั้งหมด,   F = หญิง  ,   M = ชาย
                 a.SEX = '" . $sql_sex . "'
                 ORDER BY
-                a.y2022 DESC
+                a.y2023 DESC
                 LIMIT 20 ";
                 //echo $sql;
                 $rs = $this->db->query($sql)->result();
                 // echo $this->db->last_query();
         }
+
+        return $rs;
+    }
+
+    public function top10($year, $provcode, $ampcode)
+    {
+        $death_prov = $this->load->database('death_prov', TRUE);
+        if($ampcode != ""){
+            $code=$ampcode;
+        }else if($provcode !=""){
+            $code=$provcode;
+        }else{
+            $code="";
+        }
+        
+            $sql = "SELECT
+                a.CODE298,
+                b.t_name,
+                b.e_name,count(a.CODE298) as total ,
+                SUM(IF(a.SEX=1,1,0)) as male,
+                SUM(IF(a.SEX=2,1,0)) as female
+                FROM
+                death_home a 
+                LEFT JOIN cgroup298disease b ON a.CODE298 = b.cgroup
+                WHERE
+                a.LCCAATTMM LIKE '".$code."%' 
+                AND DYEAR='".$year."' 
+                GROUP BY a.CODE298 
+                ORDER BY total DESC
+                LIMIT 20;";
+                //echo $sql;
+                $rs = $death_prov->query($sql)->result();
+                // echo $this->db->last_query();
 
         return $rs;
     }

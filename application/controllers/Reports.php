@@ -41,4 +41,12 @@ class Reports extends REST_Controller
         $r = $this->report_model->yll7_dev($sex,$prov,$amp);
         $this->response($r);
     }
+    public function top10_post(){
+        //echo "API TEST OK";
+        $year= $this->input->get('year');
+        $provcode= $this->input->get('provcode');
+        $ampurcode= $this->input->get('ampurcode');
+        $r = $this->report_model->top10($year,$provcode,$ampurcode);
+        $this->response($r);
+    }
 }

@@ -267,7 +267,7 @@ class Report_model extends CI_Model
 
     public function top10($year, $provcode, $ampcode)
     {
-        $death_prov = $this->load->database('death_prov', TRUE);
+        //$death_prov = $this->load->database('death_prov', TRUE);
         if($ampcode != ""){
             $code=$ampcode;
         }else if($provcode !=""){
@@ -292,7 +292,7 @@ class Report_model extends CI_Model
                 ORDER BY total DESC
                 LIMIT 20;";
                 //echo $sql;
-                $rs = $death_prov->query($sql)->result();
+                $rs = $this->db->query($sql)->result();
                 // echo $this->db->last_query();
 
         return $rs;
